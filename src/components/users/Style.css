@@ -1,0 +1,39 @@
+.userStyle{
+    background: #F3F3F3;
+    padding: 10px;
+    margin-bottom: 20px;
+    border-radius: 20px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    text-align: center;
+}
+
+.userBtn{
+    cursor: pointer;
+    padding: 5px;
+    margin: 5px;
+    width: 150px;
+    border: none;
+    color: #fff;
+    height: 30px;
+    font-size: 15px;
+    background: #445565;
+    border-radius: 8px;
+    transition: 0.2s;
+}
+
+.userBtn:hover{
+    background: rgb(105, 121, 138);
+    transition: 0.2s;
+}
+
+.deleteUser{
+    background: rgb(230, 71, 71);
+    transition: 0.2s;
+
+}
+
+.deleteUser:hover{
+    background: rgb(207, 93, 93);
+    transition: 0.2s;
+
+}
