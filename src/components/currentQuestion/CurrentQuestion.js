@@ -14,7 +14,8 @@ function CurrentQuestion() {
     else {
         return (
             <div>
-                <p>Current Question: {CurrentQuestionData?.question}</p>
+                <h1>Current Question:</h1>
+                <h1>{CurrentQuestionData?.question}</h1>
             </div>
         );
     }

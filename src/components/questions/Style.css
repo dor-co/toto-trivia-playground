@@ -1,0 +1,26 @@
+.quesStyle{
+    text-align: start;
+    background: #F3F3F3;
+    padding: 10px;
+    margin-bottom: 20px;
+    border-radius: 12px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    text-align: center;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.quesStyle:hover{
+    background: #cecece;
+    transition: 0.2s;
+}
+
+
+.com{
+    background: rgb(230, 71, 71);
+    text-decoration: line-through;
+}
+
+.com:hover{
+    background: rgb(230, 71, 71);
+}

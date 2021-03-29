@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import "firebase/firestore";
 import { useFirestoreDocData, useFirestore } from "reactfire";
 import firebase from 'firebase';
+import './Style.css';
 
 function Question({ item, index, id }) {
 
@@ -16,7 +17,12 @@ function Question({ item, index, id }) {
     const updateCurrentQuestion = () => {
         setComplete(!complete)
         CurrentQuestionRef.update({
-            question: question1Data.question
+            index: index+1,
+            question: question1Data.question,
+            answer1: question1Data.answer1,
+            answer2: question1Data.answer2,
+            answerX: question1Data.answerX,
+            rightAnswer: question1Data.rightAnswer
         })
             .then(() => {
                 console.log("Document successfully written!");
@@ -27,11 +33,11 @@ function Question({ item, index, id }) {
     }
 
     if (question1Status === 'loading')
-        return <p>loading...</p>;
+        return <p></p>;
     else {
         return (
-            <div style={{ background: '#e6e6e6' }}>
-                <p className={complete ? 'com' : ''} onClick={updateCurrentQuestion}>Question {index + 1}: {item[index].question}</p>
+            <div>
+                <p className={complete ? 'quesStyle com' : 'quesStyle'} onClick={updateCurrentQuestion}>Question {index + 1}: {item[index].question}</p>
             </div>
         );
     }

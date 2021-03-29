@@ -57,7 +57,17 @@ h1{
   }
 }
 
-.com{
-  background: rgb(230, 71, 71);
-  text-decoration: line-through;
+.playgroundTitle{
+  background: #445565;
+  color: #E9E9E9;
+  height: 50px;
+  padding-top: 2px;
+  font-size: 40px;
+  margin-top: 0px;
+}
+
+.logoImg{
+  position: absolute;
+  right: 10px;
+  top: 9px;
 }

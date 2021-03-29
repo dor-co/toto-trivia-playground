@@ -1,4 +1,4 @@
-import logo from "./logo.svg";
+//import logo from "./logo.svg";
 import "./App.css";
 import "firebase/firestore";
 import { useFirestoreDocData, useFirestore, firestore } from "reactfire";
@@ -8,7 +8,8 @@ import React, { Children, useEffect, useState } from 'react';
 import userEvent from "@testing-library/user-event";
 import { render } from "@testing-library/react";
 import firebase from 'firebase';
-import CurrentQuestion from './components/currentQuestion/CurrentQuestion'
+import CurrentQuestion from './components/currentQuestion/CurrentQuestion';
+import logo from './asserts/logos_a_logos_winner.png';
 
 function App() {
 
@@ -25,7 +26,7 @@ function App() {
 	let quesIds = [];
 
 	useEffect(() => {
-
+		
 	}, [])
 
 
@@ -52,12 +53,13 @@ function App() {
 
 	return (
 		<div>
-			<h1>playground</h1>
+			<h1 className='playgroundTitle'>Playground<img className='logoImg' src={logo} /></h1>
 			<div className="currQues">
 				<CurrentQuestion />
 			</div>
 			<div className="App">
 				<div className='que'>
+					<h2>Questions List:</h2>
 					{users.map((item, index) => {
 						return (
 							<Question
@@ -69,7 +71,7 @@ function App() {
 					})}
 				</div>
 				<div className='us'>
-
+					<h2>Users:</h2>
 					{users.map((item, index) => {
 						return (
 							<User
