@@ -60,7 +60,7 @@ function User({ item, index, id }) {
 							<button className='userBtn' onClick={update}>update</button>
 						</div>
 					</>) : (
-					<button className='userBtn' onClick={updateUser}>show dropdown</button>
+					<button className='userBtn' onClick={updateUser}>update user</button>
 				)}
 				<br />
 			</div>
