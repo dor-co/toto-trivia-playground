@@ -21,7 +21,8 @@ function Question({ item, index, id }) {
         setComplete(!complete);
         prevRef.update({
             cost: CurrentQuestionData.cost,
-            rightAnswer: CurrentQuestionData.rightAnswer
+            rightAnswer: CurrentQuestionData.rightAnswer,
+            question: CurrentQuestionData.question
         }).then(() => {
             CurrentQuestionRef.update({
                 index: index+1,
@@ -46,7 +47,8 @@ function Question({ item, index, id }) {
     else {
         return (
             <div>
-                <p className={complete ? 'quesStyle com' : 'quesStyle'} onClick={updateCurrentQuestion}>Question {index + 1}: {item[index].question}</p>
+                {complete ? <button disabled={true} className='quesStyle com' onClick={updateCurrentQuestion}>Question {index + 1}: {item[index].question}</button>
+                : <button disabled={false} className='quesStyle' onClick={updateCurrentQuestion}>Question {index + 1}: {item[index].question}</button>}
             </div>
         );
     }
