@@ -19,27 +19,62 @@ function Question({ item, index, id }) {
 
     const updateCurrentQuestion = () => {
         setComplete(!complete);
-        prevRef.update({
-            cost: CurrentQuestionData.cost,
-            rightAnswer: CurrentQuestionData.rightAnswer,
-            question: CurrentQuestionData.question
-        }).then(() => {
-            CurrentQuestionRef.update({
-                index: index+1,
-                question: question1Data.question,
-                answer1: question1Data.answer1,
-                answer2: question1Data.answer2,
-                answerX: question1Data.answerX,
-                rightAnswer: question1Data.rightAnswer,
-                cost: question1Data.cost
+        question1Data.isSelected = true
+        if (CurrentQuestionData.cost == undefined) {
+            question1Ref.update({
+                isSelected: true
             })
-                .then(() => {
-                    console.log("Document successfully written!");
+            prevRef.set({
+                cost: null,
+                questionIndex: null,
+                rightAnswer: null,
+                question: null
+            }).then(() => {
+                CurrentQuestionRef.update({
+                    index: index + 1,
+                    questionIndex: 1,
+                    question: question1Data.question,
+                    answer1: question1Data.answer1,
+                    answer2: question1Data.answer2,
+                    answerX: question1Data.answerX,
+                    rightAnswer: question1Data.rightAnswer,
+                    cost: question1Data.cost
                 })
-                .catch((error) => {
-                    console.error("Error writing document: ", error);
-                });
-        }).catch((error) => console.log('Error write data to prev question', error));
+                    .then(() => {
+                        console.log("Document successfully written!");
+                    })
+                    .catch((error) => {
+                        console.error("Error writing document: ", error);
+                    });
+            }).catch((error) => console.log('Error write data to prev question', error));
+        }
+        else {
+            question1Ref.update({
+                isSelected: true
+            })
+            prevRef.update({
+                cost: CurrentQuestionData.cost,
+                rightAnswer: CurrentQuestionData.rightAnswer,
+                question: CurrentQuestionData.question
+            }).then(() => {
+                CurrentQuestionRef.update({
+                    index: index + 1,
+                    questionIndex: CurrentQuestionData.questionIndex + 1,
+                    question: question1Data.question,
+                    answer1: question1Data.answer1,
+                    answer2: question1Data.answer2,
+                    answerX: question1Data.answerX,
+                    rightAnswer: question1Data.rightAnswer,
+                    cost: question1Data.cost,
+                })
+                    .then(() => {
+                        console.log("Document successfully written!");
+                    })
+                    .catch((error) => {
+                        console.error("Error writing document: ", error);
+                    });
+            }).catch((error) => console.log('Error write data to prev question', error));
+        }
     }
 
     if (question1Status === 'loading')
@@ -47,8 +82,8 @@ function Question({ item, index, id }) {
     else {
         return (
             <div>
-                {complete ? <button disabled={true} className='quesStyle com' onClick={updateCurrentQuestion}>Question {index + 1}: {item[index].question}</button>
-                : <button disabled={false} className='quesStyle' onClick={updateCurrentQuestion}>Question {index + 1}: {item[index].question}</button>}
+                {question1Data?.isSelected ? <button disabled={true} className='quesStyle com' onClick={updateCurrentQuestion}>Question {index + 1}: {item[index].question}</button>
+                    : <button disabled={false} className='quesStyle' onClick={updateCurrentQuestion}>Question {index + 1}: {item[index].question}</button>}
             </div>
         );
     }
