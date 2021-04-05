@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import "firebase/firestore";
-import { useFirestoreDocData, useFirestore } from "reactfire";
+import { useFirestoreDocData, useFirestore, firestore } from "reactfire";
 import firebase from 'firebase';
 import './Style.css';
 
@@ -38,9 +38,10 @@ function Question({ item, index, id }) {
                     answer2: question1Data.answer2,
                     answerX: question1Data.answerX,
                     rightAnswer: question1Data.rightAnswer,
-                    cost: question1Data.cost
-                })
-                    .then(() => {
+                    cost: question1Data.cost,
+                    id: question1Data.NO_ID_FIELD,
+                    Answer: question1Data.Answers,
+                }).then(() => {
                         console.log("Document successfully written!");
                     })
                     .catch((error) => {
@@ -66,8 +67,8 @@ function Question({ item, index, id }) {
                     answerX: question1Data.answerX,
                     rightAnswer: question1Data.rightAnswer,
                     cost: question1Data.cost,
-                })
-                    .then(() => {
+                    id: question1Data.NO_ID_FIELD,
+                }).then(() => {
                         console.log("Document successfully written!");
                     })
                     .catch((error) => {
@@ -82,6 +83,7 @@ function Question({ item, index, id }) {
     else {
         return (
             <div>
+                
                 {question1Data?.isSelected ? <button disabled={true} className='quesStyle com' onClick={updateCurrentQuestion}>Question {index + 1}: {item[index].question}</button>
                     : <button disabled={false} className='quesStyle' onClick={updateCurrentQuestion}>Question {index + 1}: {item[index].question}</button>}
             </div>

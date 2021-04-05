@@ -1,15 +1,36 @@
 import React, { useState, useEffect } from 'react';
 import "firebase/firestore";
-import { useFirestoreDocData, useFirestore } from "reactfire";
 import firebase from 'firebase';
+import { useFirestoreDocData, useFirestore, firestore } from "reactfire";
 import './Style.css';
+import Selector from '../selector/Selector';
 
 function User({ item, index, id }) {
 	const [dropdown, setDropdown] = useState(false)
+	const [renderCount, setRenderCount] = useState(0);
 
 	const userRef = useFirestore().collection("Users").doc(id);
 	const userRefStatus = useFirestoreDocData(userRef).status;
     const userRefData = useFirestoreDocData(userRef).data;
+
+	const [teams, setTeams] = useState([]);
+	const [teamsID, setTeamsID] = useState([]);
+	const teamsTemp = [];
+	let teamsIds = [];
+
+	if (renderCount < 1) {
+		setRenderCount(1)
+		firestore().collection('Teams').get().then((querySnapshot) => { //need to fix it, slow the prosses
+			querySnapshot.forEach((doc) => {
+				teamsIds.push(doc.id);
+				teamsTemp.push(doc.data().id);
+			})
+			setTeams(teamsTemp);
+			setTeamsID(teamsIds)
+		})
+	}
+
+	
 
 	const deleteUser = () => {
 		userRef.delete().then(() => {
@@ -37,7 +58,6 @@ function User({ item, index, id }) {
 				console.error("Error writing document: ", error);
 			});
 	}
-
 	if (userRefStatus === 'loading')
 		return <p>loading...</p>;
 	else {
@@ -51,13 +71,21 @@ function User({ item, index, id }) {
 					<>
 						<button className='userBtn' onClick={updateUser}>hide dropdown</button>
 						<div>
-							<select name="jobTitle" id="jobTitle">
-								<option value="developer">developer</option>
-								<option value="qa">qa</option>
-								<option value="manager">manager</option>
-								<option value="sells">sells</option>
+						<select name="jobTitle" id="jobTitle">
+
+
+							{teamsID.map((item, index) => {
+								return (
+									<Selector
+										key={item}
+										item={item}
+										index={index}
+										id={teamsID[index]} />
+								)
+							})}
 							</select>
 							<button className='userBtn' onClick={update}>update</button>
+							
 						</div>
 					</>) : (
 					<button className='userBtn' onClick={updateUser}>update user</button>
