@@ -40,7 +40,6 @@ function Question({ item, index, id }) {
                     rightAnswer: question1Data.rightAnswer,
                     cost: question1Data.cost,
                     id: question1Data.NO_ID_FIELD,
-                    Answer: question1Data.Answers,
                 }).then(() => {
                         console.log("Document successfully written!");
                     })
@@ -68,6 +67,8 @@ function Question({ item, index, id }) {
                     rightAnswer: question1Data.rightAnswer,
                     cost: question1Data.cost,
                     id: question1Data.NO_ID_FIELD,
+                    //Answers: question1Data.collection("Answers").doc('test'),
+ 
                 }).then(() => {
                         console.log("Document successfully written!");
                     })
@@ -84,8 +85,8 @@ function Question({ item, index, id }) {
         return (
             <div>
                 
-                {question1Data?.isSelected ? <button disabled={true} className='quesStyle com' onClick={updateCurrentQuestion}>Question {index + 1}: {item[index].question}</button>
-                    : <button disabled={false} className='quesStyle' onClick={updateCurrentQuestion}>Question {index + 1}: {item[index].question}</button>}
+                {question1Data?.isSelected ? <button disabled={true} className='quesStyle com' onClick={updateCurrentQuestion}>Question {index + 1}: {item.question}</button>
+                    : <button disabled={false} className='quesStyle' onClick={updateCurrentQuestion}>Question {index + 1}: {item.question}</button>}
             </div>
         );
     }

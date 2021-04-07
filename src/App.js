@@ -1,7 +1,7 @@
 //import logo from "./logo.svg";
 import "./App.css";
 import "firebase/firestore";
-import { useFirestoreDocData, useFirestore, firestore } from "reactfire";
+import { useFirestoreDocData, useFirestore, firestore, useSuspenseEnabledFromConfigAndContext } from "reactfire";
 import User from './components/users/User';
 import Question from './components/questions/Question'
 import React, { Children, useEffect, useState } from 'react';
@@ -26,30 +26,33 @@ function App() {
 	let quesIds = [];
 
 	useEffect(() => {
-		
+		usedefect()
 	}, [])
 
+	const db = firestore();
 
-	if (renderCount < 1) {
-		firestore().collection('Users').get().then((querySnapshot) => { //need to fix it, slow the prosses
-			setRenderCount(1)
-			querySnapshot.forEach((doc) => {
+	//if (renderCount < 1) {
+	const usedefect=async()=>{
+		const userData = await db.collection('Users').get(); //need to fix it, slow the prosses
+			//setRenderCount(1)
+			userData.forEach((doc) => {
 				ids.push(doc.id);
 				temp.push(doc.data());
 			})
 			setUsers(temp);
 			setID(ids)
-		})
+		
 
-		firestore().collection('Questions').get().then((querySnapshot) => { //need to fix it, slow the prosses
-			querySnapshot.forEach((doc) => {
+		const questionData = await db.collection('Questions').get(); //need to fix it, slow the prosses
+			questionData.forEach((doc) => {
 				quesIds.push(doc.id);
 				quesTemp.push(doc.data());
 			})
 			setQuestions(quesTemp);
 			setQuesID(quesIds)
-		})
-	}
+		
+	}  
+	
 
 	return (
 		<div>
@@ -60,11 +63,11 @@ function App() {
 			<div className="App">
 				<div className='que'>
 					<h2>Questions List:</h2>
-					{users.map((item, index) => {
+					{questions.map((item, index) => {
 						return (
 							<Question
 								key={item.id}
-								item={questions}
+								item={item}
 								index={index}
 								id={quesID[index]} />
 						)
@@ -76,7 +79,7 @@ function App() {
 						return (
 							<User
 								key={item.id}
-								item={users}
+								item={item}
 								index={index}
 								id={ID[index]}
 							/>
@@ -85,6 +88,7 @@ function App() {
 			</div>
 		</div>
 	);
+				
 }
 
 export default App;

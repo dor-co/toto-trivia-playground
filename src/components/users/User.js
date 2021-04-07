@@ -18,17 +18,35 @@ function User({ item, index, id }) {
 	const teamsTemp = [];
 	let teamsIds = [];
 
-	if (renderCount < 1) {
-		setRenderCount(1)
-		firestore().collection('Teams').get().then((querySnapshot) => { //need to fix it, slow the prosses
-			querySnapshot.forEach((doc) => {
+	// if (renderCount < 1) {
+	// 	setRenderCount(1)
+	// 	firestore().collection('Teams').get().then((querySnapshot) => { //need to fix it, slow the prosses
+	// 		querySnapshot.forEach((doc) => {
+	// 			teamsIds.push(doc.id);
+	// 			teamsTemp.push(doc.data().id);
+	// 		})
+	// 		setTeams(teamsTemp);
+	// 		setTeamsID(teamsIds)
+	// 	})
+	// }
+
+	const db = firestore();
+
+	useEffect(() => {
+		usedef()
+	}, [])
+
+	//if (renderCount < 1) {
+	const usedef=async()=>{
+		const teamData = await db.collection('Teams').get(); //need to fix it, slow the prosses
+			//setRenderCount(1)
+			teamData.forEach((doc) => {
 				teamsIds.push(doc.id);
-				teamsTemp.push(doc.data().id);
+				teamsTemp.push(doc.data());
 			})
-			setTeams(teamsTemp);
+			setTeams(teams);
 			setTeamsID(teamsIds)
-		})
-	}
+	}  
 
 	
 
@@ -63,7 +81,7 @@ function User({ item, index, id }) {
 	else {
 		return (
 			<div className='userStyle'>
-				<p>Username: {item[index].Name}</p>
+				<p>Username: {item.firstName}</p>
 				<p>Job Title: {userRefData?.job}</p>
 				{/* <p>ID: {id}</p> */}
 				<button className='userBtn deleteUser' onClick={deleteUser}>delete user</button>
@@ -75,6 +93,7 @@ function User({ item, index, id }) {
 
 
 							{teamsID.map((item, index) => {
+								//console.log(teamsID[index]);
 								return (
 									<Selector
 										key={item}
