@@ -5,9 +5,9 @@ import { useFirestoreDocData, useFirestore, firestore, useSuspenseEnabledFromCon
 import User from './components/users/User';
 import Question from './components/questions/Question'
 import React, { Children, useEffect, useState } from 'react';
-import userEvent from "@testing-library/user-event";
-import { render } from "@testing-library/react";
-import firebase from 'firebase';
+// import userEvent from "@testing-library/user-event";
+// import { render } from "@testing-library/react";
+// import firebase from 'firebase';
 import CurrentQuestion from './components/currentQuestion/CurrentQuestion';
 import logo from './asserts/logos_a_logos_winner.png';
 
@@ -23,13 +23,13 @@ function App() {
 	let quesIds = [];
 
 	useEffect(() => {
-		usedefect()
+		ueCall()
 	}, [])
 
 	const db = firestore();
 
-	const usedefect=async()=>{
-		const userData = await db.collection('Users').get(); //need to fix it, slow the prosses
+	const ueCall=async()=>{
+		const userData = await db.collection('Users').get();
 			userData.forEach((doc) => {
 				ids.push(doc.id);
 				temp.push(doc.data());
@@ -37,27 +37,27 @@ function App() {
 			setUsers(temp);
 			setID(ids)
 		
-		const questionData = await db.collection('Questions').get(); //need to fix it, slow the prosses
+		const questionData = await db.collection('Questions').get();
 			questionData.forEach((doc) => {
 				quesIds.push(doc.id);
 				quesTemp.push(doc.data());
 			})
-			setQuestions(quesTemp);
-			setQuesID(quesIds)
-	}  
+			setQuestions(quesTemp); //array of object of all the questions
+			//console.log(quesTemp)
+			setQuesID(quesIds) //array of the ids of the questions
+			//console.log(quesIds)
+	}
 	
 	const displayScoreRef = useFirestore().collection('Dashboard').doc('Dashboard');
-	const displayScoreData = useFirestoreDocData(displayScoreRef).data;
-	console.log('showscore', displayScoreData?.showScore)
 
 	const refresh = () => {
 		displayScoreRef.update({
 		showScore: true
 		})
 		setTimeout(function(){
-			 displayScoreRef.update({
+			displayScoreRef.update({
 			showScore: false
-		}) }, 1);
+		}) }, 0);
 	}
 
 	return (
@@ -70,13 +70,14 @@ function App() {
 			<div className="App">
 				<div className='que'>
 					<h2>Questions List:</h2>
-					{questions.map((item, index) => {
+					{questions.map((item) => {
 						return (
 							<Question
 								key={item.id}
 								item={item}
-								index={index}
-								id={quesID[index]} />
+								//index={index} //for display - Question # 
+								//id={quesID[index]} //for the reference save isSelected field
+							/>
 						)
 					})}
 				</div>
