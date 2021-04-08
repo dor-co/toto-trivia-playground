@@ -4,6 +4,27 @@
   display: flex;
 }
 
+.refreshBtn{
+  position: absolute;
+  right: 0;
+  margin-right: 25px;
+  background: #307325;
+  border: none;
+  width: 150px;
+  height: 30px;
+  border-radius: 3px;
+  font-size: 15px;
+  color: #fff;
+  cursor: pointer;
+  outline: none;
+  transition: 0.15s;
+}
+
+.refreshBtn:hover{
+  transition: 0.15s;
+  background: #559c49;
+}
+
 .currQues{
   text-align: center;
 }

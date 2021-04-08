@@ -30,7 +30,7 @@ function Question({ item, index, id }) {
                 rightAnswer: null,
                 question: null
             }).then(() => {
-                CurrentQuestionRef.update({
+                CurrentQuestionRef.update({                    
                     index: index + 1,
                     questionIndex: 1,
                     question: question1Data.question,
@@ -66,9 +66,7 @@ function Question({ item, index, id }) {
                     answerX: question1Data.answerX,
                     rightAnswer: question1Data.rightAnswer,
                     cost: question1Data.cost,
-                    id: question1Data.NO_ID_FIELD,
-                    //Answers: question1Data.collection("Answers").doc('test'),
- 
+                    id: question1Data.NO_ID_FIELD, 
                 }).then(() => {
                         console.log("Document successfully written!");
                     })
