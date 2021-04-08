@@ -1,9 +1,11 @@
-import React from 'react';
+import React from "react";
 
-function Selector({ item, index, id }) {
-    return (
-        <option value={item}>{item}</option>
-    );
+function Selector({ id, value, isSelected }) {
+  return (
+    <option value={id} selected={isSelected}>
+      {value}
+    </option>
+  );
 }
 
 export default Selector;
