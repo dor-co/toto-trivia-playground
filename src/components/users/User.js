@@ -18,34 +18,33 @@ function User({ item, index, id }) {
 	const teamsTemp = [];
 	let teamsIds = [];
 
-	// if (renderCount < 1) {
-	// 	setRenderCount(1)
-	// 	firestore().collection('Teams').get().then((querySnapshot) => { //need to fix it, slow the prosses
-	// 		querySnapshot.forEach((doc) => {
-	// 			teamsIds.push(doc.id);
-	// 			teamsTemp.push(doc.data().id);
-	// 		})
-	// 		setTeams(teamsTemp);
-	// 		setTeamsID(teamsIds)
-	// 	})
-	// }
+	const [crews, setCrews] = useState([]);
+	const [crewsID, setCrewsID] = useState([]);
+	const crewsTemp = [];
+	let crewsIds = [];
 
 	const db = firestore();
 
 	useEffect(() => {
-		usedef()
+		ueCall()
 	}, [])
 
-	//if (renderCount < 1) {
-	const usedef=async()=>{
+	const ueCall=async()=>{
 		const teamData = await db.collection('Teams').get(); //need to fix it, slow the prosses
-			//setRenderCount(1)
 			teamData.forEach((doc) => {
 				teamsIds.push(doc.id);
 				teamsTemp.push(doc.data());
 			})
 			setTeams(teams);
 			setTeamsID(teamsIds)
+
+			const crewData = await db.collection('Crews').get(); //need to fix it, slow the prosses
+			crewData.forEach((doc) => {
+				crewsIds.push(doc.id);
+				crewsTemp.push(doc.data());
+			})
+			setCrews(crews);
+			setCrewsID(crewsIds)
 	}  
 
 	
@@ -76,6 +75,21 @@ function User({ item, index, id }) {
 				console.error("Error writing document: ", error);
 			});
 	}
+
+	const updateCrew = () => {
+		var e = document.getElementById("crew");
+		console.log(e.value);
+		userRef.update({
+			crew: e.value
+		})
+			.then(() => {
+				console.log("Document successfully written!");
+			})
+			.catch((error) => {
+				console.error("Error writing document: ", error);
+			});
+	}
+
 	if (userRefStatus === 'loading')
 		return <p>loading...</p>;
 	else {
@@ -83,28 +97,44 @@ function User({ item, index, id }) {
 			<div className='userStyle'>
 				<p>Username: {item.firstName}</p>
 				<p>Job Title: {userRefData?.job}</p>
-				{/* <p>ID: {id}</p> */}
+				<p>Crew: {userRefData?.crew}</p>
 				<button className='userBtn deleteUser' onClick={deleteUser}>delete user</button>
 				{dropdown ? (
 					<>
 						<button className='userBtn' onClick={updateUser}>hide dropdown</button>
 						<div>
-						<select name="jobTitle" id="jobTitle">
+							<p>
+								<h4>update job title:</h4>
+								<select name="jobTitle" id="jobTitle">
+									{teamsID.map((item, index) => {
+										return (
+											<Selector
+												key={item}
+												item={item}
+												index={index}
+												id={teamsID[index]} />
+										)
+									})}
+								</select>
+								<button className='userBtn' onClick={update}>update</button>
+							</p>
 
+							<p>
+								<h4>update crew:</h4>
+								<select name="crew" id="crew">
+									{crewsID.map((item, index) => {
+										return (
+											<Selector
+												key={item}
+												item={item}
+												index={index}
+												id={crewsID[index]} />
+										)
+									})}
+								</select>
+								<button className='userBtn' onClick={updateCrew}>update</button>
+							</p>
 
-							{teamsID.map((item, index) => {
-								//console.log(teamsID[index]);
-								return (
-									<Selector
-										key={item}
-										item={item}
-										index={index}
-										id={teamsID[index]} />
-								)
-							})}
-							</select>
-							<button className='userBtn' onClick={update}>update</button>
-							
 						</div>
 					</>) : (
 					<button className='userBtn' onClick={updateUser}>update user</button>

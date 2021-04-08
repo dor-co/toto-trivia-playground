@@ -19,6 +19,7 @@
     background: #445565;
     border-radius: 8px;
     transition: 0.2s;
+    outline: none;
 }
 
 .userBtn:hover{
@@ -29,7 +30,6 @@
 .deleteUser{
     background: rgb(230, 71, 71);
     transition: 0.2s;
-
 }
 
 .deleteUser:hover{

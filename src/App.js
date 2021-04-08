@@ -12,9 +12,6 @@ import CurrentQuestion from './components/currentQuestion/CurrentQuestion';
 import logo from './asserts/logos_a_logos_winner.png';
 
 function App() {
-
-	const [renderCount, setRenderCount] = useState(0);
-
 	const [users, setUsers] = useState([]);
 	const [ID, setID] = useState([]);
 	const temp = [];
@@ -31,10 +28,8 @@ function App() {
 
 	const db = firestore();
 
-	//if (renderCount < 1) {
 	const usedefect=async()=>{
 		const userData = await db.collection('Users').get(); //need to fix it, slow the prosses
-			//setRenderCount(1)
 			userData.forEach((doc) => {
 				ids.push(doc.id);
 				temp.push(doc.data());
@@ -42,7 +37,6 @@ function App() {
 			setUsers(temp);
 			setID(ids)
 		
-
 		const questionData = await db.collection('Questions').get(); //need to fix it, slow the prosses
 			questionData.forEach((doc) => {
 				quesIds.push(doc.id);
@@ -50,13 +44,26 @@ function App() {
 			})
 			setQuestions(quesTemp);
 			setQuesID(quesIds)
-		
 	}  
 	
+	const displayScoreRef = useFirestore().collection('Dashboard').doc('Dashboard');
+	const displayScoreData = useFirestoreDocData(displayScoreRef).data;
+	console.log('showscore', displayScoreData?.showScore)
+
+	const refresh = () => {
+		displayScoreRef.update({
+		showScore: true
+		})
+		setTimeout(function(){
+			 displayScoreRef.update({
+			showScore: false
+		}) }, 1);
+	}
 
 	return (
 		<div>
 			<h1 className='playgroundTitle'>Playground<img className='logoImg' src={logo} /></h1>
+			<button className='refreshBtn' onClick={refresh}>refresh dashboard</button>
 			<div className="currQues">
 				<CurrentQuestion />
 			</div>
