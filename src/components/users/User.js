@@ -1,7 +1,6 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import "firebase/firestore";
-import firebase from "firebase";
-import { useFirestoreDocData, useFirestore, firestore } from "reactfire";
+import { useFirestore } from "reactfire";
 import "./Style.css";
 import Selector from "../selector/Selector";
 
@@ -9,6 +8,14 @@ function User({ user, index, id, crews, teams, isNewUser }) {
   const [firstName, setName] = useState("");
   const [crewId, setCrewId] = useState("");
   const [teamId, setTeamId] = useState("");
+
+  // let aq = [];
+  // aq.push({ans: '1', ques: 'quesId'})
+  // aq.push({ans: '1', ques: 'quesId'})
+  // aq.push({ans: '1', ques: 'quesId'})
+  // aq.push({ans: '1', ques: 'quesId'})
+  // aq.push({ans: '1', ques: 'quesId'})
+  // aq.push({ans: '1', ques: 'quesId'})
 
   const userRef = useFirestore().collection("Users").doc(id);
 
@@ -21,14 +28,17 @@ function User({ user, index, id, crews, teams, isNewUser }) {
           firstName,
           crewId,
           teamId,
+          score: 0,
+          userAnswer: [],
+          //AQ: aq
         })
         .then(() => setName(""), setCrewId(""), setTeamId(""));
     } else {
       alert("please choose something");
     }
-
     console.log("yesss!");
   };
+
   const deleteUser = () => {
     userRef.delete();
   };
@@ -77,7 +87,7 @@ function User({ user, index, id, crews, teams, isNewUser }) {
       <td></td>
       <td></td>
       <td>
-        <button className="userBtn deleteUser" onClick={addUser}>
+        <button className="userBtn" onClick={addUser}>
           add user
         </button>
       </td>
@@ -106,8 +116,8 @@ function User({ user, index, id, crews, teams, isNewUser }) {
           })}
         </select>
       </td>
-      <td></td>
-      <td></td>
+      <td>{user.score}</td> {/* points */}
+      <td style={{direction: 'ltr'}}>{user.userAnswer.join(', ')}</td> {/* answers */}
       <td>
         {" "}
         <button
@@ -124,6 +134,5 @@ function User({ user, index, id, crews, teams, isNewUser }) {
     </tr>
   );
 }
-// }
 
 export default User;
