@@ -1,7 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import "firebase/firestore";
 import { useFirestoreDocData, useFirestore } from "reactfire";
-import firebase from 'firebase';
 
 function CurrentQuestion() {
 
@@ -15,7 +14,7 @@ function CurrentQuestion() {
         return (
             <div>
                 <h1>Current Question:</h1>
-                <h1>{CurrentQuestionData?.question}</h1>
+                <h1 style={{fontSize: 50}}>{CurrentQuestionData?.question}</h1>
             </div>
         );
     }
