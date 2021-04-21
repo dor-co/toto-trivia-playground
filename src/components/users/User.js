@@ -5,17 +5,10 @@ import "./Style.css";
 import Selector from "../selector/Selector";
 
 function User({ user, index, id, crews, teams, isNewUser }) {
+  // console.log("🚀 ~ file: User.js ~ line 8 ~ User ~ user", user?.id)
   const [firstName, setName] = useState("");
   const [crewId, setCrewId] = useState("");
   const [teamId, setTeamId] = useState("");
-
-  // let aq = [];
-  // aq.push({ans: '1', ques: 'quesId'})
-  // aq.push({ans: '1', ques: 'quesId'})
-  // aq.push({ans: '1', ques: 'quesId'})
-  // aq.push({ans: '1', ques: 'quesId'})
-  // aq.push({ans: '1', ques: 'quesId'})
-  // aq.push({ans: '1', ques: 'quesId'})
 
   const userRef = useFirestore().collection("Users").doc(id);
 
@@ -30,6 +23,7 @@ function User({ user, index, id, crews, teams, isNewUser }) {
           teamId,
           score: 0,
           userAnswer: [],
+          AQ:[]
           //AQ: aq
         })
         .then(() => setName(""), setCrewId(""), setTeamId(""));
@@ -52,11 +46,12 @@ function User({ user, index, id, crews, teams, isNewUser }) {
 
   return isNewUser ? (
     <tr>
-      <td>
+    <td>
         <input
           value={firstName}
           type="text"
           id="newUserName"
+          placeholder='הכנס שם משתמש'
           onChange={(e) => setName(e.currentTarget.value)}
         ></input>
       </td>
