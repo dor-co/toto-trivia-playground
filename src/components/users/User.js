@@ -5,7 +5,6 @@ import "./Style.css";
 import Selector from "../selector/Selector";
 
 function User({ user, index, id, crews, teams, isNewUser }) {
-  // console.log("🚀 ~ file: User.js ~ line 8 ~ User ~ user", user?.id)
   const [firstName, setName] = useState("");
   const [crewId, setCrewId] = useState("");
   const [teamId, setTeamId] = useState("");
@@ -46,7 +45,7 @@ function User({ user, index, id, crews, teams, isNewUser }) {
 
   return isNewUser ? (
     <tr>
-    <td>
+      <td style={{background: '#e8e8e8'}}>
         <input
           value={firstName}
           type="text"
@@ -55,7 +54,7 @@ function User({ user, index, id, crews, teams, isNewUser }) {
           onChange={(e) => setName(e.currentTarget.value)}
         ></input>
       </td>
-      <td>
+      <td style={{background: '#e8e8e8'}}>
         <select
           value={teamId}
           id="newTeamId"
@@ -67,7 +66,7 @@ function User({ user, index, id, crews, teams, isNewUser }) {
           })}
         </select>
       </td>
-      <td>
+      <td style={{background: '#e8e8e8'}}>
         <select
           value={crewId}
           id="newCrewId"
@@ -79,9 +78,9 @@ function User({ user, index, id, crews, teams, isNewUser }) {
           })}
         </select>
       </td>
-      <td></td>
-      <td></td>
-      <td>
+      <td style={{background: '#e8e8e8'}}></td>
+      <td style={{background: '#e8e8e8'}}></td>
+      <td style={{background: '#e8e8e8'}}>
         <button className="userBtn" onClick={addUser}>
           add user
         </button>
@@ -111,8 +110,8 @@ function User({ user, index, id, crews, teams, isNewUser }) {
           })}
         </select>
       </td>
-      <td>{user.score}</td> {/* points */}
-      <td style={{direction: 'ltr'}}>{user.userAnswer.join(', ')}</td> {/* answers */}
+      <td>{user.score}</td>
+      <td style={{direction: 'ltr'}}>{user.userAnswer.join(', ')}</td>
       <td>
         {" "}
         <button

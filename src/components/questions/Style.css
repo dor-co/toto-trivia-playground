@@ -20,7 +20,6 @@
     transition: 0.2s;
 }
 
-
 .com{
     background: rgb(230, 71, 71);
     text-decoration: line-through;
@@ -29,4 +28,44 @@
 
 .com:hover{
     background: rgb(230, 71, 71);
+}
+
+.deleteAnswerBtn{
+    border: none;
+    background: none;
+    outline: none;
+    cursor: pointer;
+    font-size: 1.5rem;
+}
+
+.deleteAnswerBtn:hover{
+    color: rgb(230, 71, 71);
+}
+
+.addAmswerBtn{
+    margin-right: 5;
+    border: none;
+    background: none;
+    cursor: pointer;
+    font-size: 2rem;
+    outline: none;
+}
+
+.addAmswerBtn:hover{
+    color:rgb(88, 88, 88);
+}
+
+.thStyle{
+    background: #0d1336;
+    height: 40px;
+    color: #fff;
+}
+
+.closeAddAnswerBtn{
+    font-size: 3ch;
+    cursor: pointer;
+}
+
+.closeAddAnswerBtn:hover{
+    color:rgb(88, 88, 88);
 }

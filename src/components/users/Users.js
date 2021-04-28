@@ -10,16 +10,16 @@ function Users({ users,crews, teams}) {
 
   return   (
     <div className="us">
-          <h2>Users:</h2>
-          <table style={{ direction: "rtl", width: '100%'}}>
+          <h2 style={{color: '#0d1336'}}>Users:</h2>
+          <table style={{ border: '1px solid rgb(207, 207, 207)', direction: "rtl", width: '100%', boxShadow: '0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)', borderCollapse: 'collapse'}}>
             <thead>
               <tr>
-                <th>שם</th>
-                <th>קבוצה</th>
-                <th>צוות</th>
-                <th>נקודות</th>
-                <th>תשובות</th>
-                <th>פעולות</th>
+                <th className="thStyle">שם</th>
+                <th className="thStyle">קבוצה</th>
+                <th className="thStyle">צוות</th>
+                <th className="thStyle">נקודות</th>
+                <th className="thStyle">תשובות</th>
+                <th className="thStyle">פעולות</th>
               </tr>
             </thead>
             <tbody>

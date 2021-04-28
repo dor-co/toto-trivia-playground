@@ -18,22 +18,23 @@
     font-size: 15px;
     background: #445565;
     border-radius: 8px;
-    transition: 0.2s;
+    transition: 0.1s;
     outline: none;
 }
 
 .userBtn:hover{
     background: rgb(105, 121, 138);
-    transition: 0.2s;
+    transition: 0.1s;
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 3px 10px 0 rgba(0, 0, 0, 0.19);
 }
 
 .deleteUser{
     background: rgb(230, 71, 71);
-    transition: 0.2s;
+    transition: 0.1s;
 }
 
 .deleteUser:hover{
     background: rgb(207, 93, 93);
-    transition: 0.2s;
-
+    transition: 0.1s;
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 3px 10px 0 rgba(0, 0, 0, 0.19);
 }

@@ -3,6 +3,7 @@ import "firebase/firestore";
 import Question from "./Question"
 import { useFirestoreDocData, useFirestore, firestore } from "reactfire";
 import "./Style.css";
+import * as AiIcons from 'react-icons/ai';
 
 function Questions({ questions ,onSelectHandler}) {
   const [questionInput, setQuestionInput] = useState("");
@@ -15,11 +16,12 @@ function Questions({ questions ,onSelectHandler}) {
 
   const closeAnswerField = () => {
     setOpenAnswerInput(false);
-    setAnswerInput("")
+    setAnswerInput("");
+    setAnswerInputPrice("");
+    setAnswerInputIsCorrect("בחר האם התשובה נכונה");
   }
 
   const addQuestion = () => {
-    setOpenAnswerInput(true)
     if (questionInput != "" ) {
       setOpenAnswerInput(true)
       db.collection("Questions")
@@ -61,16 +63,17 @@ function Questions({ questions ,onSelectHandler}) {
   questions = questions.sort((a,b)=>(a.index>b.index)?1:((b.index>a.index)?-1:0));
   return (
     <div className="que">
-    <h2>Questions List:</h2>
-    <table style={{ direction: "rtl", width: '100%' }}>
+    <h2 style={{color: '#0d1336'}}>Questions List:</h2>
+    <table style={{ border: '1px solid rgb(207, 207, 207)', direction: "rtl", width: '100%', boxShadow: '0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)' ,borderCollapse: 'collapse'}}>
       <thead>
         <tr>
-          <th>שאלה</th>
-          <th>isUsed</th>
-          <th>Index</th>
-          <th>תשובות</th>
-          {/* <th></th> */}
-          {/* <th></th> */}
+          <th className="thStyle">שאלה</th>
+          <th className="thStyle">isUsed</th>
+          <th className="thStyle">Index</th>
+          <th className="thStyle">תשובות</th>
+          <th className="thStyle"></th>
+          <th className="thStyle"></th>
+          <th className="thStyle"></th>
         </tr>
       </thead>
       <tbody>
@@ -84,7 +87,7 @@ function Questions({ questions ,onSelectHandler}) {
           );
         })}
       </tbody>
-      <td>
+      <td style={{background: '#e8e8e8', borderLeftStyle: 'hidden'}}>
         <input 
           value={questionInput}
           style={{width: 180}}
@@ -94,15 +97,22 @@ function Questions({ questions ,onSelectHandler}) {
           onClick={closeAnswerField}
           onChange={(e) => setQuestionInput(e.currentTarget.value)} />
       </td>
-      <td>
+      <td style={{background: '#e8e8e8', borderLeftStyle: 'hidden'}}>
         <button className="userBtn" onClick={addQuestion}>
           add question
         </button>
       </td>
-      
+      <td style={{background: '#e8e8e8', borderLeftStyle: 'hidden'}}></td>
+      <td style={{background: '#e8e8e8', borderLeftStyle: 'hidden'}}></td>
+      <td style={{background: '#e8e8e8', borderLeftStyle: 'hidden'}}></td>
+      <td style={{background: '#e8e8e8', borderLeftStyle: 'hidden'}}></td>
+      <td style={{background: '#e8e8e8'}}></td>
       {openAnswerInput ? (
-      <tr>
-        <td>
+      <tr style={{background: '#e8e8e8'}}>
+        <td style={{borderLeftStyle: 'hidden', paddingTop: 5}}>
+          <AiIcons.AiOutlineCloseCircle className='closeAddAnswerBtn' onClick={closeAnswerField}/>
+        </td>
+        <td style={{borderLeftStyle: 'hidden'}}>
           <input 
             value={answerInput}
             style={{width: 180}}
@@ -113,7 +123,7 @@ function Questions({ questions ,onSelectHandler}) {
               setAnswerInput(e.currentTarget.value) 
             }} />
         </td>
-        <td>
+        <td style={{background: '#e8e8e8', borderLeftStyle: 'hidden'}}>
           <input 
             value={answerInputPrice}
             style={{width: 180}}
@@ -124,7 +134,7 @@ function Questions({ questions ,onSelectHandler}) {
               setAnswerInputPrice(e.currentTarget.value) 
             }} />
         </td>
-        <td>
+        <td style={{background: '#e8e8e8', borderLeftStyle: 'hidden'}}>
           <select value={answerInputIsCorrect} onChange={(e) => {
             setAnswerInputIsCorrect(e.currentTarget.value)
           }} 
@@ -134,7 +144,9 @@ function Questions({ questions ,onSelectHandler}) {
             <option value='false'>לא</option>
           </select>
         </td>
-      <td>
+      <td style={{background: '#e8e8e8', borderLeftStyle: 'hidden'}}></td>
+      <td style={{background: '#e8e8e8', borderLeftStyle: 'hidden'}}></td>
+      <td style={{background: '#e8e8e8'}}>
         <button className="userBtn" onClick={addAnswer}>
           add answer
         </button>
@@ -142,9 +154,7 @@ function Questions({ questions ,onSelectHandler}) {
       </tr>) : (
         null
       )}
-      
     </table>
-    
   </div>
   );
 }
