@@ -7,6 +7,7 @@ import React, { useEffect, useState } from "react";
 import CurrentQuestion from "./components/currentQuestion/CurrentQuestion";
 import logo from "./asserts/logos_a_logos_winner.png";
 import * as MdIcons from 'react-icons/md';
+import { AiFillQqCircle } from "react-icons/ai";
 
 function App() {
   const db = firestore();
@@ -30,6 +31,7 @@ function App() {
   const colCount = dashboardRefData?.columnCounter;
 
   const onSelect = (questionItem) => {
+    
     const currentQuestionRef = db.collection("CurrentQuestion").doc("CurrentQuestion");
     const questionRef = db.collection("Questions").doc(questionItem.id);
     
@@ -92,6 +94,9 @@ function App() {
         dashboardRef.update({
             columnCounter: colCount + 1
         })
+        alert('you added one more column for teams score table')
+    }else{
+        alert('you added all the columns for teams score table')
     }
   } 
 
@@ -152,10 +157,6 @@ function App() {
           <h2 style={{direction: 'rtl', textDecoration: 'underline', marginTop: 30, color: '#0d1336'}}>שאלה נוכחית:</h2>
           <h1 style={{fontSize: 40, color: '#0d1336'}}> {currentQuestion[0]?.question}</h1>
       </div>
-        {/* <h1 style={{ textAlign: "left", marginRight: 50, fontSize: 27 }}>
-          {currentQuestion[0]?.countAnswered}/{users.length} Users answered the
-          question
-        </h1> */}
         <table
           className='mainTable'
           style={{ width: 600, minHeight: 200, marginRight: 50 }} 
@@ -171,25 +172,60 @@ function App() {
           <tbody>
 
 
+            {/* {users.map((el, index) => {
+              const teamReference = db.collection('Teams').doc(el.teamId);
+              let currentTeamScore;
+              let questionPrice;
+              teamReference.get().then((docSnapshot) => {
+                if(docSnapshot.exists){
+                  teamReference.onSnapshot((doc) => {
+                    currentTeamScore = doc.data().score;
+                    console.log('Before change', currentTeamScore)
+                  });
+                }
+              });
+              el.AQ.map((e, index) => {
+                const qReference = db.collection('Questions').doc(e.ques);
+                qReference.get().then((docSnapshot) => {
+                  if(docSnapshot.exists){
+                    qReference.onSnapshot((doc) => {
+                      doc.data().answers.forEach((a) => {
+                        questionPrice = a.price;
+                        if(a.isCorrect === true && a.answer === e.ans){
+                          console.log('user right')
+                          currentTeamScore = currentTeamScore + questionPrice;
+                          console.log('After change', currentTeamScore);
+                          //update firestores
+                        }
+                      })
+                    });
+                  }
+                });
+              })
+              return(
+                  <></>
+                );
+            })} */}
+
 
             {teams.map((item) => {
               let scr = item.score;
               let usersInTeam = users.filter((u) => u.teamId === item.id);
-              usersInTeam.forEach((el) => {
-                el.AQ.forEach((e) => {
-                  questions.forEach((q) => {
-                    q.answers.forEach((an) => {
-                      if(an.isCorrect === true){
-                        if(an.answer === e.ans){
-                          //console.log('user right!')
-                          // update the score
-                        }
-                      }
-                    })
-                    // console.log('-----------------------------')
-                  })
-                });
-              });
+              // usersInTeam.forEach((el) => {
+              //   el.AQ.forEach((e) => {
+              //     questions.forEach((q) => {
+              //       q.answers.forEach((an) => {
+              //         if(an.isCorrect === true){
+              //           if(an.answer === e.ans){
+              //             //console.log('user right!')
+              //             // update the score
+              //           }
+              //         }
+              //       })
+              //       // console.log('-----------------------------')
+              //     })
+              //   });
+              // });
 
 
 
