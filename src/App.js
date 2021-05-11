@@ -171,64 +171,9 @@ function App() {
           </thead>
           <tbody>
 
-
-            {/* {users.map((el, index) => {
-              const teamReference = db.collection('Teams').doc(el.teamId);
-              let currentTeamScore;
-              let questionPrice;
-              teamReference.get().then((docSnapshot) => {
-                if(docSnapshot.exists){
-                  teamReference.onSnapshot((doc) => {
-                    currentTeamScore = doc.data().score;
-                    console.log('Before change', currentTeamScore)
-                  });
-                }
-              });
-              el.AQ.map((e, index) => {
-                const qReference = db.collection('Questions').doc(e.ques);
-                qReference.get().then((docSnapshot) => {
-                  if(docSnapshot.exists){
-                    qReference.onSnapshot((doc) => {
-                      doc.data().answers.forEach((a) => {
-                        questionPrice = a.price;
-                        if(a.isCorrect === true && a.answer === e.ans){
-                          console.log('user right')
-                          currentTeamScore = currentTeamScore + questionPrice;
-                          console.log('After change', currentTeamScore);
-                          //update firestores
-                        }
-                      })
-                    });
-                  }
-                });
-              })
-              return(
-                  <></>
-                );
-            })} */}
-
-
             {teams.map((item) => {
               let scr = item.score;
               let usersInTeam = users.filter((u) => u.teamId === item.id);
-              // usersInTeam.forEach((el) => {
-              //   el.AQ.forEach((e) => {
-              //     questions.forEach((q) => {
-              //       q.answers.forEach((an) => {
-              //         if(an.isCorrect === true){
-              //           if(an.answer === e.ans){
-              //             //console.log('user right!')
-              //             // update the score
-              //           }
-              //         }
-              //       })
-              //       // console.log('-----------------------------')
-              //     })
-              //   });
-              // });
-
-
-
               return (
                 <tr>
                   {showDeleteTeam ? (<td style={{direction: 'ltr', textAlign: 'right', whiteSpace: 'nowrap'}}>{item.title}{showDeleteTeam ? (
@@ -291,7 +236,6 @@ function App() {
                     : (null)}</td>): (<td>{item.title}</td>)}
                   <td>{users.filter((u) => u.crewId == item.id).length}</td>
                   <td>{item.answerArray.join(", ")}</td>
-                  {/* <td>{item.answersArray.length}</td> */}
                   <td>{item.score}</td>
                 </tr>
               );
