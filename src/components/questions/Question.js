@@ -5,12 +5,14 @@ import "./Style.css";
 import * as MdIcons from 'react-icons/md';
 
 function Question({ item, onSelectHandler }) {
+  console.log(onSelectHandler)
   const questionRef = useFirestore().collection("Questions").doc(item.id);
   const [showDeleteBtn, setshowDeleteBtn] = useState(false);
   const [answerInput, setAnswerInput] = useState("");
   const [answerInputPrice, setAnswerInputPrice] = useState();
   const [answerInputIsCorrect, setAnswerInputIsCorrect] = useState("בחר האם התשובה נכונה");
-  
+  const [editQ, setEditQ] = useState('');
+
   const db = useFirestore();
 
   const deleteQuestion = () => {
@@ -51,11 +53,31 @@ function Question({ item, onSelectHandler }) {
     }
   }
 
+  const editQue = (value) => {
+    setEditQ(value)
+  }
+
+  const saveEditQues = () => {
+    questionRef.update({
+      question: editQ
+    })
+  }
+
   return (
     <tr>
-      <td>{item.question}</td>
+      {showDeleteBtn ? (
+        <td>
+          <input 
+            value={editQ}
+            onChange={(e) => editQue(e.currentTarget.value)}
+            />
+          <button onClick={saveEditQues}>save</button>
+        </td>
+      ) : (
+        <td>{item.question}</td>
+      )}
       <td>{item.isUsed?"yes":"no"}</td>
-      <td>{item.index}</td>
+      <td>Q{item.index}</td>
       <td>
         <table style={{ width: '100%', marginLeft: 10, border: 'none', borderCollapse: 'collapse'}}>
           <tr>
@@ -152,6 +174,7 @@ function Question({ item, onSelectHandler }) {
           className="userBtn"
           onClick={() => {
             setshowDeleteBtn(!showDeleteBtn)
+            setEditQ(item.question)
             setAnswerInput("");
             setAnswerInputPrice("");
             setAnswerInputIsCorrect("בחר האם התשובה נכונה");

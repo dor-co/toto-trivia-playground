@@ -151,15 +151,17 @@ function App() {
           flexDirection: "row",
           textAlign: "center",
           justifyContent: "center",
+          paddingLeft: 50,
+          paddingRight: 50
         }}
       >
         <div className="currQues">
           <h2 style={{direction: 'rtl', textDecoration: 'underline', marginTop: 30, color: '#0d1336'}}>שאלה נוכחית:</h2>
-          <h1 style={{fontSize: 40, color: '#0d1336'}}> {currentQuestion[0]?.question}</h1>
+          <h1 style={{fontSize: 40, color: '#0d1336',direction: 'rtl'}}> {currentQuestion[0]?.question}</h1>
       </div>
         <table
           className='mainTable'
-          style={{ width: 600, minHeight: 200, marginRight: 50 }} 
+          style={{ width: 600, minHeight: 200, marginRight: 10, marginLeft: 10 }} 
         >
           <thead>
             <tr>
@@ -212,7 +214,7 @@ function App() {
         <br />
         <table 
         className="mainTable"
-        style={{ width: 600, minHeight: 200, marginLeft: 50 }}>
+        style={{ width: 600, minHeight: 200, marginLeft: 10, marginRight: 10 }}>
           <thead>
             <tr>
               <th style={{minWidth: 180}}>צוות</th>
