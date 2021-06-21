@@ -68,10 +68,11 @@ function Question({ item, onSelectHandler }) {
       {showDeleteBtn ? (
         <td>
           <input 
+            style={{width: '75%'}}
             value={editQ}
             onChange={(e) => editQue(e.currentTarget.value)}
             />
-          <button onClick={saveEditQues}>save</button>
+          <button className="userBtn" style={{width: 40}} onClick={saveEditQues}>save</button>
         </td>
       ) : (
         <td>{item.question}</td>
