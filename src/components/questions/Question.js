@@ -5,7 +5,6 @@ import "./Style.css";
 import * as MdIcons from 'react-icons/md';
 
 function Question({ item, onSelectHandler }) {
-  console.log(onSelectHandler)
   const questionRef = useFirestore().collection("Questions").doc(item.id);
   const [showDeleteBtn, setshowDeleteBtn] = useState(false);
   const [answerInput, setAnswerInput] = useState("");

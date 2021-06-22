@@ -138,6 +138,57 @@ function App() {
     teamRefDelete.delete();
   }
 
+  const restartGame = () => {
+    const currQuesRef = db.collection("CurrentQuestion").doc("CurrentQuestion");
+    currQuesRef.update({
+      question: '',
+      index: 0,
+      isUsed: false
+    });
+
+    const dashRef = db.collection("Dashboard").doc("Dashboard");
+    dashRef.update({
+      columnCounter: 0
+    });
+
+    users.forEach((e) => {
+      const usRef = db.collection("Users").doc(e.id);
+      usRef.update({
+        AQ: [],
+        score: 0,
+        lastAnsweredQuestion: '',
+        prevAnswer: '',
+        userAnswer: []
+      });
+    })
+
+    teams.forEach((e) => {
+      const tRef = db.collection("Teams").doc(e.id);
+      tRef.update({
+        score: 0,
+        AQ: [],
+        answerArray: []
+      });
+    })
+
+    crews.forEach((e) => {
+      const cRef = db.collection("Crews").doc(e.id);
+      cRef.update({
+        score: 0,
+        AQ: [],
+        answerArray: []
+      });
+    })
+
+    questions.forEach((e) => {
+      const qRef = db.collection("Questions").doc(e.id);
+      qRef.update({
+        index: 0,
+        isUsed: false
+      });
+    })
+  }
+
   return (
     <div className="container">
       <h1 className="playgroundTitle">
@@ -145,6 +196,7 @@ function App() {
         <img className="logoImg" src={logo} />
       </h1>
       <button className='addColumnBtn' onClick={addColumn}>show one more column</button>
+      <button className='addColumnBtn' onClick={restartGame}>reset game</button>
       <div
         style={{
           display: "flex",
