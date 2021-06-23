@@ -236,7 +236,7 @@ function App() {
                     : (null)}</td>): (<td>{item.title}</td>)}
                   <td>{users.filter((u) => u.teamId == item.id).length}</td>
                   <td>{item.answerArray.join(", ")}</td>
-                  <td>{item.score}</td>
+                  <td>{item.score.toFixed(1)}</td>
                 </tr>
               );
             })}
@@ -290,7 +290,7 @@ function App() {
                     : (null)}</td>): (<td>{item.title}</td>)}
                   <td>{users.filter((u) => u.crewId == item.id).length}</td>
                   <td>{item.answerArray.join(", ")}</td>
-                  <td>{item.score}</td>
+                  <td>{item.score.toFixed(1)}</td>
                 </tr>
               );
             })}

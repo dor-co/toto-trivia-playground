@@ -110,7 +110,7 @@ function User({ user, index, id, crews, teams, isNewUser }) {
           })}
         </select>
       </td>
-      <td>{user.score}</td>
+      <td>{user.score.toFixed(1)}</td>
       <td style={{direction: 'ltr'}}>{user.userAnswer.join(', ')}</td>
       <td>
         {" "}
